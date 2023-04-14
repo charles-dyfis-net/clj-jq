@@ -79,7 +79,7 @@
     (swap! seq-atom conj json-node))
   IContainer
   (getValue [_]
-    (let [contents @seq-atom
+    (let [[contents _] (reset-vals! seq-atom [])
           jsonArray (.arrayNode JsonNodeFactory/instance (count contents))]
       (doseq [^JsonNode item contents]
         (.add jsonArray item))
